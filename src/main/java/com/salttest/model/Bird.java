@@ -1,4 +1,4 @@
-package com.cxf.spring.model;
+package com.salttest.model;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -5,9 +5,9 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cxf.spring.model.Bird;
 import com.cxf.spring.services.BirdService;
 import com.salttest.dao.BirdDAO;
+import com.salttest.model.Bird;
 import com.salttest.utility.PageSupportor;
 
 public class BirdServiceImpl implements BirdService {

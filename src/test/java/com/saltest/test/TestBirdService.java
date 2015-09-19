@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cxf.spring.model.Bird;
 import com.salttest.dao.BirdDAO;
+import com.salttest.model.Bird;
 import com.salttest.utility.PageSupportor;
 
 public class TestBirdService {

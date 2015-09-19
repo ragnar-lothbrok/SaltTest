@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.cxf.spring.model.Bird;
+import com.salttest.model.Bird;
 import com.salttest.utility.PageSupportor;
 
 @WebService(serviceName = "birdServices")

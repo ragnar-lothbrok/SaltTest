@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.cxf.spring.model.Bird;
+import com.salttest.model.Bird;
 import com.salttest.utility.PageSupportor;
 
 /**
@@ -69,7 +69,7 @@ public class BirdDAO {
                 pageSupportor.setStartIndex(0);
                 pageSupportor.setTotalRecords((bird == null ? 0 : 1));
                 pageSupportor.setEndIndex(0);
-            }else{
+            } else {
                 pageSupportor.getErrors().add("No Bird found for Id :" + birdId);
             }
             logger.info("bird fetched : " + pageSupportor);
@@ -93,7 +93,7 @@ public class BirdDAO {
             try {
                 bird.setId(null);
                 Query searchUserQuery = new Query(Criteria.where("name").is(bird.getName()));
-                if(mongoTemplate.findOne(searchUserQuery, Bird.class) == null){
+                if (mongoTemplate.findOne(searchUserQuery, Bird.class) == null) {
                     mongoTemplate.save(bird);
                     if (bird != null) {
                         List<Bird> birdList = new ArrayList<Bird>();
@@ -103,7 +103,7 @@ public class BirdDAO {
                         pageSupportor.setTotalRecords((bird == null ? 0 : 1));
                         pageSupportor.setEndIndex(0);
                     }
-                }else{
+                } else {
                     pageSupportor.getErrors().add("Name you provided already exists.");
                 }
             } catch (Exception exception) {
@@ -126,12 +126,12 @@ public class BirdDAO {
     public int deleteBird(String birdId) {
         logger.info("deleting bird : " + birdId);
         try {
-            if(getBirdById(birdId).getItems() != null && getBirdById(birdId).getItems().size() > 0){
+            if (getBirdById(birdId).getItems() != null && getBirdById(birdId).getItems().size() > 0) {
                 Query searchUserQuery = new Query(Criteria.where("id").is(birdId));
                 mongoTemplate.remove(searchUserQuery, Bird.class);
                 logger.info("bird deleted : " + birdId);
                 return 1;
-            }else{
+            } else {
                 return -1;
             }
         } catch (Exception exception) {
@@ -139,4 +139,9 @@ public class BirdDAO {
         }
         return -1;
     }
+
+    public MongoTemplate getMongoTemplate() {
+        return mongoTemplate;
+    }
+
 }
