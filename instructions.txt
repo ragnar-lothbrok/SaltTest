@@ -1,0 +1,13 @@
+{"name":"sds","age":12,"color":"red"}
+
+http://localhost:8080/SaltTest/birds/
+
+mvn clean install -DskipTests
+
+Deploy in tomcat/webapps
+
+Test with RestClient
+
+Improvements :
+1. Can use JSR validations to stop invalid request before persistence layer.
+2. Can add other properties of bird as well.
