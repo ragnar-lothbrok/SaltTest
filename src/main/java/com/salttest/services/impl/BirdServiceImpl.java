@@ -1,7 +1,6 @@
 package com.salttest.services.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,13 @@ public class BirdServiceImpl implements BirdService {
      * @return Bird
      */
     @Override
-    public PageSupportor<Bird> getBirdsById(String birdId) {
-        return birdDAO.getBirdById(birdId);
+    public Response getBirdsById(String birdId) {
+        PageSupportor<Bird> ps = birdDAO.getBirdById(birdId);
+        if (ps.getErrors().size() > 0) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(ps).build();
+        }
     }
 
     /**
@@ -46,8 +50,13 @@ public class BirdServiceImpl implements BirdService {
      * @return Bird
      */
     @Override
-    public PageSupportor<Bird> saveBird(Bird bird) {
-        return birdDAO.saveBird(bird);
+    public Response saveBird(Bird bird) {
+        PageSupportor<Bird> ps = birdDAO.saveBird(bird);
+        if (ps.getErrors().size() > 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            return Response.status(Response.Status.CREATED).entity(ps).build();
+        }
     }
 
     /**
@@ -57,14 +66,13 @@ public class BirdServiceImpl implements BirdService {
      * @return
      */
     @Override
-    public Map<String, Boolean> deleteBirdsById(String birdId) {
-        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
-        if (birdDAO.deleteBird(birdId) == 1) {
-            resultMap.put("success", true);
+    public Response deleteBirdsById(String birdId) {
+        int deleted = birdDAO.deleteBird(birdId);
+        if (deleted == -1) {
+            return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            resultMap.put("success", false);
+            return Response.status(Response.Status.OK).build();
         }
-        return resultMap;
     }
 
 }

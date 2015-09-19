@@ -1,6 +1,7 @@
 package com.cxf.spring.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,10 +21,14 @@ public class Bird implements Serializable {
     private String id;
 
     private String name;
-    
+
     private Integer age;
-    
+
     private String color;
+
+    private Boolean visible = false;
+
+    private Date added = new Date();
 
     public String getId() {
         return id;
@@ -97,6 +102,22 @@ public class Bird implements Serializable {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
+    public Date getAdded() {
+        return added;
+    }
+
+    public void setAdded(Date added) {
+        this.added = added;
     }
 
 }

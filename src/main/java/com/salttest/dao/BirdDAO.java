@@ -126,13 +126,17 @@ public class BirdDAO {
     public int deleteBird(String birdId) {
         logger.info("deleting bird : " + birdId);
         try {
-            Query searchUserQuery = new Query(Criteria.where("id").is(birdId));
-            mongoTemplate.remove(searchUserQuery, Bird.class);
-            logger.info("bird deleted : " + birdId);
-            return 1;
+            if(getBirdById(birdId).getItems() != null && getBirdById(birdId).getItems().size() > 0){
+                Query searchUserQuery = new Query(Criteria.where("id").is(birdId));
+                mongoTemplate.remove(searchUserQuery, Bird.class);
+                logger.info("bird deleted : " + birdId);
+                return 1;
+            }else{
+                return -1;
+            }
         } catch (Exception exception) {
             logger.error("Exception occured while deleting bird : " + exception.getMessage());
         }
-        return 0;
+        return -1;
     }
 }
